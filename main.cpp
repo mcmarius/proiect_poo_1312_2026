@@ -11,13 +11,17 @@ class Ventilator
     std::string m_model;
 
 public:
-    explicit Ventilator(int rps) : m_rps(rps) {}
+    explicit Ventilator(int rps) : m_rps(rps)
+    {
+    }
+
     int get_rps()
     {
         if (m_rps < 0)
             return 0;
         return m_rps;
     }
+
     void set_rps(int rps) { m_rps = rps; }
 
     [[nodiscard]] std::string get_m_model() const
@@ -34,7 +38,6 @@ public:
     // Ventilator(const Ventilator& v) = default;
     // Ventilator& operator=(const Ventilator&) = default;
     // ~Ventilator() = default;
-
 };
 
 void f(Ventilator v)
@@ -42,7 +45,8 @@ void f(Ventilator v)
     std::cout << v.get_m_model() << "\n";
 }
 
-int main() {
+int main()
+{
     f(Ventilator{3});
     std::cout << "Hello, 1312 cu bormasini si ventilatoare!\n";
     Example e1;
