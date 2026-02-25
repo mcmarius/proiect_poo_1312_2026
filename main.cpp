@@ -51,7 +51,7 @@ void test_tema1()
 int main()
 {
     test_tema1();
-    std::cout << "Hello, 1312 cu bormasini si ventilatoare!\n";
+    std::cout << "Hello din terminal, 1312 cu bormasini si ventilatoare!\n";
     Example e1;
     e1.g();
     std::array<int, 100> v{};
