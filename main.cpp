@@ -1,5 +1,7 @@
 #include <iostream>
 #include <array>
+#include <ostream>
+
 #include "include/Example.h"
 // This also works if you do not want `include/`, but some editors might not like it
 // #include "Example.h"
@@ -14,24 +16,18 @@ public:
     explicit Ventilator(int rps) : m_rps(rps)
     {
     }
-
-    int get_rps()
-    {
-        if (m_rps < 0)
-            return 0;
-        return m_rps;
-    }
-
-    void set_rps(int rps) { m_rps = rps; }
-
-    [[nodiscard]] std::string get_m_model() const
+    [[nodiscard]] const std::string& get_m_model() const
     {
         return m_model;
     }
 
-    void set_m_model(const std::string& m_model)
+
+    friend std::ostream& operator<<(std::ostream& os, const Ventilator& obj)
     {
-        this->m_model = m_model;
+        return os
+            << "m_rps: " << obj.m_rps
+            << " m_zgomot: " << obj.m_zgomot
+            << " m_model: " << obj.m_model;
     }
 
     // Ventilator() =default;
@@ -40,14 +36,21 @@ public:
     // ~Ventilator() = default;
 };
 
-void f(Ventilator v)
+void f(const Ventilator& v)
 {
     std::cout << v.get_m_model() << "\n";
 }
 
+void test_tema1()
+{
+    Ventilator v1{3};
+    f(v1);
+    std::cout << v1;
+}
+
 int main()
 {
-    f(Ventilator{3});
+    test_tema1();
     std::cout << "Hello, 1312 cu bormasini si ventilatoare!\n";
     Example e1;
     e1.g();
