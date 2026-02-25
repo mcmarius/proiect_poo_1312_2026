@@ -4,8 +4,47 @@
 // This also works if you do not want `include/`, but some editors might not like it
 // #include "Example.h"
 
+class Ventilator
+{
+    int m_rps = 100;
+    double m_zgomot = 60;
+    std::string m_model;
+
+public:
+    explicit Ventilator(int rps) : m_rps(rps) {}
+    int get_rps()
+    {
+        if (m_rps < 0)
+            return 0;
+        return m_rps;
+    }
+    void set_rps(int rps) { m_rps = rps; }
+
+    [[nodiscard]] std::string get_m_model() const
+    {
+        return m_model;
+    }
+
+    void set_m_model(const std::string& m_model)
+    {
+        this->m_model = m_model;
+    }
+
+    // Ventilator() =default;
+    // Ventilator(const Ventilator& v) = default;
+    // Ventilator& operator=(const Ventilator&) = default;
+    // ~Ventilator() = default;
+
+};
+
+void f(Ventilator v)
+{
+    std::cout << v.get_m_model() << "\n";
+}
+
 int main() {
-    std::cout << "Hello, 1312 cu bormasini!\n";
+    f(Ventilator{3});
+    std::cout << "Hello, 1312 cu bormasini si ventilatoare!\n";
     Example e1;
     e1.g();
     std::array<int, 100> v{};
