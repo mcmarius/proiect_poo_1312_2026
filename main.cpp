@@ -1,57 +1,67 @@
 #include <iostream>
 #include <array>
+#include <optional>
 #include <ostream>
+#include <vector>
 
+#include "Cladire.h"
+#include "Etaj.h"
 #include "include/Example.h"
 // This also works if you do not want `include/`, but some editors might not like it
 // #include "Example.h"
 
-class Ventilator
-{
-    int m_rps = 100;
-    double m_zgomot = 60;
-    std::string m_model;
 
-public:
-    explicit Ventilator(int rps) : m_rps(rps)
-    {
-    }
-    [[nodiscard]] const std::string& get_m_model() const
-    {
-        return m_model;
-    }
-
-
-    friend std::ostream& operator<<(std::ostream& os, const Ventilator& obj)
-    {
-        return os
-            << "m_rps: " << obj.m_rps
-            << " m_zgomot: " << obj.m_zgomot
-            << " m_model: " << obj.m_model;
-    }
-
-    // Ventilator() =default;
-    // Ventilator(const Ventilator& v) = default;
-    // Ventilator& operator=(const Ventilator&) = default;
-    // ~Ventilator() = default;
+class Student {
 };
 
-void f(const Ventilator& v)
-{
-    std::cout << v.get_m_model() << "\n";
+class Facultate {
+    std::optional<Cladire> cladire;
+    std::string nume;
+    std::vector<Student> studenti;
+
+public:
+    Facultate(const std::optional<Cladire> &cladire, const std::string &nume, const std::vector<Student> &studenti);
+
+    Facultate(const Facultate &other);
+
+    Facultate &operator=(const Facultate &other);
+
+    ~Facultate() = default;
+
+    friend std::ostream &operator<<(std::ostream &os, const Facultate &facultate);
+};
+
+std::ostream &operator<<(std::ostream &os, const Facultate &facultate) {
+    if (facultate.cladire.has_value()) {
+        os << "cladire: " << *facultate.cladire;
+    }
+    os << " nume: " << facultate.nume;
+    return os;
 }
 
-void test_tema1()
-{
-    Ventilator v1{3};
-    f(v1);
-    std::cout << v1;
+Facultate::Facultate(const std::optional<Cladire> &cladire, const std::string &nume,
+                     const std::vector<Student> &studenti) : cladire(cladire),
+                                                             nume(nume),
+                                                             studenti(studenti) {
 }
 
-int main()
-{
-    test_tema1();
-    std::cout << "Hello din terminal, 1312 cu bormasini si ventilatoare!\n";
+Facultate::Facultate(const Facultate &other) : cladire(other.cladire),
+                                               nume(other.nume),
+                                               studenti(other.studenti) {
+}
+
+Facultate &Facultate::operator=(const Facultate &other) {
+    if (this == &other)
+        return *this;
+    cladire = other.cladire;
+    nume = other.nume;
+    studenti = other.studenti;
+    return *this;
+}
+
+
+int main() {
+    std::cout << "Hello, 1312!\n";
     Example e1;
     e1.g();
     std::array<int, 100> v{};
@@ -79,13 +89,13 @@ int main()
     /////////////////////////////////////////////////////////////////////////
     std::cin >> nr;
     /////////////////////////////////////////////////////////////////////////
-    for(int i = 0; i < nr; ++i) {
+    for (int i = 0; i < nr; ++i) {
         std::cout << "v[" << i << "] = ";
         std::cin >> v[i];
     }
     std::cout << "\n\n";
     std::cout << "Am citit de la tastatură " << nr << " elemente:\n";
-    for(int i = 0; i < nr; ++i) {
+    for (int i = 0; i < nr; ++i) {
         std::cout << "- " << v[i] << "\n";
     }
     ///////////////////////////////////////////////////////////////////////////
