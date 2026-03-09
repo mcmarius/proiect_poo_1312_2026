@@ -83,20 +83,21 @@ public:
 };
 
 class Baza {
-    int z;
+    int z{3};
 
-    void g() {
+    void g() const {
+        std::cout << z;
     }
 
 protected:
     int x;
-    void f() { std::cout << "f\n"; }
+    void f() const { std::cout << "f\n"; g(); }
 
 public:
     void ff() {
     }
 
-    Baza(int x_) : x(x_) {
+    explicit Baza(int x_) : x(x_) {
         std::cout << "Constructor Bază: " << x << "\n";
         f();
     }
