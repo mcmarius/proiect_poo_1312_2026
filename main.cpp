@@ -91,10 +91,15 @@ class Baza {
 
 protected:
     int x;
-    void f() const { std::cout << "f\n"; g(); }
+
+    void f() const {
+        std::cout << "f\n";
+        g();
+    }
 
 public:
     void ff() {
+        x++;
     }
 
     explicit Baza(int x_) : x(x_) {
@@ -114,6 +119,7 @@ public:
     }
 
     void k() {
+        x--;
     }
 };
 
