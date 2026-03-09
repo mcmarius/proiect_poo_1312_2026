@@ -6,13 +6,11 @@
 
 #include "Cladire.h"
 #include "Etaj.h"
+#include "Student.h"
 #include "include/Example.h"
 // This also works if you do not want `include/`, but some editors might not like it
 // #include "Example.h"
 
-
-class Student {
-};
 
 class Facultate {
     std::optional<Cladire> cladire;
@@ -60,7 +58,97 @@ Facultate &Facultate::operator=(const Facultate &other) {
 }
 
 
+class Inchisoare : public Facultate {
+    int gravitate;
+
+public:
+    Inchisoare(const std::optional<Cladire> &cladire, const std::string &nume, const std::vector<Student> &studenti,
+               int gravitate)
+        : Facultate(cladire, nume, studenti),
+          gravitate(gravitate) {
+    }
+
+    Inchisoare(const Inchisoare &other)
+        : Facultate(other),
+          gravitate(other.gravitate) {
+    }
+
+    Inchisoare &operator=(const Inchisoare &other) {
+        if (this == &other)
+            return *this;
+        Facultate::operator =(other);
+        gravitate = other.gravitate;
+        return *this;
+    }
+};
+
+class Baza {
+    int z;
+
+    void g() {
+    }
+
+protected:
+    int x;
+    void f() { std::cout << "f\n"; }
+
+public:
+    void ff() {
+    }
+
+    Baza(int x_) : x(x_) {
+        std::cout << "Constructor Bază: " << x << "\n";
+        f();
+    }
+};
+
+class Derivata : public Baza {
+public:
+    Derivata() : Baza(1) {
+        std::cout << "Constructor 1 Derivată: " << x << "\n";
+        f();
+        ff();
+        // z;
+        // g();
+    }
+
+    void k() {
+    }
+};
+
+class Derivata2 : protected Derivata {
+public:
+    Derivata2() : Derivata() {
+        std::cout << "Constructor 1 Derivată2: " << x << "\n";
+        f();
+        ff();
+        k();
+    }
+};
+
+class Derivata3 : public Derivata2 {
+public:
+    Derivata3() : Derivata2() {
+        std::cout << "Constructor 1 Derivată3: " << x << "\n";
+        f();
+        ff();
+        k();
+    }
+};
+
+
 int main() {
+    Derivata deriv;
+    Derivata2 deriv2;
+    deriv.ff();
+    // deriv2.ff();
+    deriv.k();
+    // deriv2.k();
+    // deriv.x;
+    Ventilator ventilator1{300, 20};
+    ventilator1.start();
+    ventilator1.stop();
+    std::cout << ventilator1 << "\n\n";
     std::cout << "Hello, 1312!\n";
     Example e1;
     e1.g();

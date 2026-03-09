@@ -57,6 +57,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Etaj.cpp
         src/Cladire.cpp
         include/Cladire.h
+        include/Student.cpp
+        include/Student.h
 )
 target_sources(${MAIN_EXECUTABLE_NAME}
     PRIVATE
